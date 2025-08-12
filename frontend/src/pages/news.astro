@@ -1,0 +1,147 @@
+---
+import fs from "fs";
+import path from "path";
+
+// backend/db.json の絶対パスを解決（frontend/src/pages から見て ../../backend/db.json）
+// const dbPath = path.resolve("../../backend/db.json");
+const dbPath = path.resolve("../backend/db.json");
+const raw = fs.readFileSync(dbPath, "utf-8");
+const data = JSON.parse(raw);
+const newsList = data.news ?? [];
+---
+
+<html lang="ja">
+    <head>
+        <meta charset="utf-8" />
+        <title>今日の技術ニュース</title>
+        <style>
+            body {
+                font-family: system-ui, sans-serif;
+                margin: 24px;
+                line-height: 1.6;
+            }
+            .item {
+                display: flex;
+                gap: 12px;
+                align-items: start;
+                padding: 10px 0;
+                border-bottom: 1px solid #eee;
+            }
+            .title {
+                font-size: 16px;
+                margin: 0;
+                flex: 1;
+            }
+            .star {
+                cursor: pointer;
+                font-size: 18px;
+                background: none;
+                border: 1px solid #ddd;
+                border-radius: 6px;
+                padding: 6px 10px;
+            }
+            .star.active {
+                color: #f5b301;
+                border-color: #f5b301;
+            }
+            .meta {
+                color: #666;
+                font-size: 12px;
+            }
+            header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 12px;
+            }
+            a {
+                color: #0366d6;
+                text-decoration: none;
+            }
+            a:hover {
+                text-decoration: underline;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <h1>📰 今日の技術ニュース</h1>
+            <nav><a href="/bookmarks">⭐ ブックマークを見る</a></nav>
+        </header>
+
+        <p class="meta">更新日時: {new Date(data.date).toLocaleString()}</p>
+
+        <ul style="list-style:none; padding:0; margin:0;">
+            {
+                newsList.map((n) => (
+                    <li class="item">
+                        <button
+                            class="star"
+                            data-id={String(n.id)}
+                            data-title={n.title}
+                            data-link={n.link}
+                        >
+                            ☆
+                        </button>
+                        <p class="title">
+                            <a
+                                href={n.link}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                {n.title}
+                            </a>
+                        </p>
+                    </li>
+                ))
+            }
+        </ul>
+
+        <script is:inline>
+            const KEY = "bookmarks:v1";
+            const load = () => {
+                try {
+                    return JSON.parse(localStorage.getItem(KEY)) ?? [];
+                } catch {
+                    return [];
+                }
+            };
+            const save = (arr) =>
+                localStorage.setItem(KEY, JSON.stringify(arr));
+            const current = load();
+
+            document.querySelectorAll(".star").forEach((btn) => {
+                const id = btn.getAttribute("data-id");
+                if (current.some((x) => String(x.id) === String(id))) {
+                    btn.classList.add("active");
+                    btn.textContent = "★";
+                }
+                btn.addEventListener("click", () => {
+                    const id = btn.getAttribute("data-id");
+                    const title = btn.getAttribute("data-title");
+                    const link = btn.getAttribute("data-link");
+
+                    const list = load();
+                    const idx = list.findIndex(
+                        (x) => String(x.id) === String(id),
+                    );
+                    if (idx >= 0) {
+                        list.splice(idx, 1);
+                        btn.classList.remove("active");
+                        btn.textContent = "☆";
+                    } else {
+                        list.push({
+                            id,
+                            title,
+                            link,
+                            addedAt: new Date().toISOString(),
+                        });
+                        btn.classList.add("active");
+                        btn.textContent = "★";
+                    }
+                    save(list);
+                });
+            });
+        </script>
+    </body>
+</html>

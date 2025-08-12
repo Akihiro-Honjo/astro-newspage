@@ -1,0 +1,109 @@
+    ---
+    import fs from 'fs';
+    import path from 'path';
+
+    // Windowsで既に動いたのと同じ要領で相対パス調整
+    const histPath = path.resolve("../backend/history.json");
+    let history = {};
+    try {
+    history = JSON.parse(fs.readFileSync(histPath, "utf-8"));
+    } catch (e) {
+    history = {};
+    }
+
+    const dates = Object.keys(history).sort().reverse(); // 新しい日付が先
+    ---
+
+    <html lang="ja">
+    <head>
+        <meta charset="utf-8" />
+        <title>過去のニュース</title>
+        <style>
+        body { font-family: system-ui, sans-serif; margin: 24px; }
+        header { display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; }
+        .controls { display:flex; gap:8px; align-items:center; }
+        input, select, button { padding:8px; font-size:14px; }
+        .date-section { margin: 24px 0; }
+        .date-title { margin: 0 0 8px; font-size:18px; }
+        .item { padding:8px 0; border-bottom:1px solid #eee; }
+        a { color:#0366d6; text-decoration:none; }
+        a:hover { text-decoration:underline; }
+        .empty { color:#666; }
+        </style>
+    </head>
+    <body>
+        <header>
+        <h1>📚 過去のニュース</h1>
+        <nav><a href="/">← トップ</a></nav>
+        </header>
+
+        <div class="controls">
+        <label>日付:
+            <select id="dateSelect">
+            <option value="">すべて</option>
+            {dates.map(d => <option value={d}>{d}</option>)}
+            </select>
+        </label>
+        <label>キーワード:
+            <input id="keyword" type="text" placeholder="タイトルに含まれる語で検索" />
+        </label>
+        <button id="clear">条件クリア</button>
+        </div>
+
+        <div id="results"></div>
+
+        <script is:inline>
+        const historyData = JSON.parse({JSON.stringify(history)});
+        const results = document.getElementById('results');
+        const dateSel = document.getElementById('dateSelect');
+        const kwInput = document.getElementById('keyword');
+        const clearBtn = document.getElementById('clear');
+
+        function render() {
+            const date = dateSel.value;
+            const kw = (kwInput.value || '').toLowerCase().trim();
+
+            // 対象日付のキーを決める
+            const keys = date ? [date] : Object.keys(historyData).sort().reverse();
+
+            let html = '';
+            let total = 0;
+
+            for (const d of keys) {
+            const items = (historyData[d] || []);
+            // キーワードでフィルタ
+            const filtered = kw ? items.filter(x => (x.title || '').toLowerCase().includes(kw)) : items;
+
+            if (!filtered.length) continue;
+            total += filtered.length;
+
+            html += `<section class="date-section">
+                <h2 class="date-title">🗓 ${d}（${filtered.length}件）</h2>
+                <ul style="list-style:none; padding:0; margin:0;">` +
+                filtered.map(x => `
+                <li class="item">
+                    <a href="${x.link}" target="_blank" rel="noopener noreferrer">${x.title}</a>
+                </li>
+                `).join('') +
+                `</ul>
+            </section>`;
+            }
+
+            if (!total) {
+            html = '<p class="empty">条件に一致する記事がありません。</p>';
+            }
+            results.innerHTML = html;
+        }
+
+        dateSel.addEventListener('change', render);
+        kwInput.addEventListener('input', render);
+        clearBtn.addEventListener('click', () => {
+            dateSel.value = '';
+            kwInput.value = '';
+            render();
+        });
+
+        render();
+        </script>
+    </body>
+    </html>

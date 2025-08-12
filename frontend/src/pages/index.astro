@@ -1,0 +1,176 @@
+	---
+	---
+	<html lang="ja">
+	<head>
+		<meta charset="utf-8" />
+		<title>ITニュース</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<style>
+		:root {
+			--bg: #0b1020;
+			--panel: #12172a;
+			--panel-2: #161c33;
+			--text: #e9ecf1;
+			--muted: #9aa3b2;
+			--accent: #4e7cff;
+			--accent-2: #00d4a6;
+			--border: #232a44;
+		}
+		* { box-sizing: border-box; }
+		body {
+			margin: 0;
+			font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+			background: radial-gradient(1200px 800px at 10% -10%, #10204a, transparent),
+						radial-gradient(1200px 800px at 110% 10%, #0d233e, transparent),
+						var(--bg);
+			color: var(--text);
+		}
+		.wrap {
+			max-width: 1200px;
+			margin: 0 auto;
+			padding: 24px;
+			display: grid;
+			gap: 20px;
+			grid-template-columns: 260px 1fr;
+		}
+		header {
+			grid-column: 1 / -1;
+			display: flex; align-items: center; justify-content: space-between;
+			padding: 16px 18px; border: 1px solid var(--border); border-radius: 14px;
+			background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.0));
+			backdrop-filter: blur(6px);
+		}
+		header h1 { margin: 0; font-size: 20px; letter-spacing: .5px; }
+		header nav a { color: var(--muted); margin-left: 16px; text-decoration: none; }
+		header nav a:hover { color: var(--text); }
+
+		/* 左サイドバー */
+		.sidebar {
+			border: 1px solid var(--border);
+			border-radius: 14px;
+			background: var(--panel);
+			padding: 14px;
+			position: sticky; top: 20px;
+			height: fit-content;
+		}
+		.sb-title { margin: 4px 8px 10px; font-size: 13px; color: var(--muted); }
+		.menu { list-style: none; padding: 0; margin: 0; }
+		.menu a {
+			display: flex; align-items: center; gap: 10px;
+			padding: 10px 12px; margin: 6px 0;
+			border-radius: 10px; text-decoration: none; color: var(--text);
+			border: 1px solid transparent;
+		}
+		.menu a:hover { background: var(--panel-2); border-color: var(--border); }
+		.menu .tag { font-size: 11px; color: var(--muted); margin-left: auto; }
+
+		/* メイン */
+		.main {
+			display: grid; gap: 16px;
+		}
+		.cards {
+			display: grid; gap: 16px;
+			grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+		}
+		.card {
+			background: var(--panel);
+			border: 1px solid var(--border);
+			border-radius: 14px;
+			padding: 16px;
+			text-decoration: none;
+			color: var(--text);
+			transition: transform .12s ease, border-color .12s ease;
+			min-height: 120px;
+			display: flex; flex-direction: column; justify-content: space-between;
+		}
+		.card:hover { transform: translateY(-2px); border-color: var(--accent); }
+		.card h3 { margin: 0 0 6px; font-size: 16px; }
+		.card p { margin: 0; color: var(--muted); font-size: 13px; }
+		.badge {
+			display: inline-block; padding: 2px 8px; border-radius: 999px;
+			background: rgba(78,124,255,.15); color: #bcd0ff; font-size: 11px; border: 1px solid rgba(78,124,255,.35);
+		}
+		.section-title { margin: 4px 0; font-size: 14px; color: var(--muted); }
+
+		/* レスポンシブ */
+		@media (max-width: 860px) {
+			.wrap { grid-template-columns: 1fr; }
+			.sidebar { position: static; }
+		}
+		</style>
+	</head>
+	<body>
+		<div class="wrap">
+		<header>
+			<h1>APP-NEWS</h1>
+			<nav>
+			<a href="/news">今日のニュース</a>
+			<a href="/post">過去のニュース</a>
+			<a href="/bookmark">ブックマーク</a>
+			</nav>
+		</header>
+
+		<!-- 左サイドバー -->
+		<aside class="sidebar">
+			<div class="sb-title">メニュー</div>
+			<ul class="menu">
+			<li><a href="/post">📚 過去のニュース <span class="tag">履歴検索</span></a></li>
+			<li><a href="/bookmarks">⭐ ブックマーク</a></li>
+			</ul>
+
+			<div class="sb-title" style="margin-top:14px;">ITニュース一覧</div>
+			<ul class="menu">
+			<li><a href="/news">🧑‍💻 ITエンジニア向け ＠markitニュース <span class="tag">news.astro</span></a></li>
+			<li><a href="/ai">🤖 Itmedia AI+ <span class="tag">準備中</span></a></li>
+			<li><a href="/itmedia-news">📰 Itmedia NEWS <span class="tag">準備中</span></a></li>
+			</ul>
+		</aside>
+
+		<!-- メイン -->
+		<main class="main">
+			<div class="cards">
+			<a class="card" href="/news">
+				<div>
+				<span class="badge">今日のニュース</span>
+				<h3>ITエンジニア向け ＠markitニュース</h3>
+				<p>毎朝7時に取得された最新10件をチェック</p>
+				</div>
+			</a>
+
+			<a class="card" href="/post">
+				<div>
+				<span class="badge">履歴</span>
+				<h3>過去のニュース一覧</h3>
+				<p>日付やキーワードで検索できます</p>
+				</div>
+			</a>
+
+			<a class="card" href="/bookmarks">
+				<div>
+				<span class="badge">保存</span>
+				<h3>ブックマーク</h3>
+				<p>あとで読みたい記事をまとめて管理</p>
+				</div>
+			</a>
+
+			<!-- 将来のカード（ダミー） -->
+			<a class="card" href="/ai">
+				<div>
+				<span class="badge">準備中</span>
+				<h3>Itmedia AI+</h3>
+				<p>AI関連の最新トピック（後日実装）</p>
+				</div>
+			</a>
+
+			<a class="card" href="/itmedia-news">
+				<div>
+				<span class="badge">準備中</span>
+				<h3>Itmedia NEWS</h3>
+				<p>総合ITニュース（後日実装）</p>
+				</div>
+			</a>
+			</div>
+		</main>
+		</div>
+	</body>
+	</html>

@@ -1,0 +1,100 @@
+---
+
+---
+
+<html lang="ja">
+    <head>
+        <meta charset="utf-8" />
+        <title>ブックマーク</title>
+        <style>
+            body {
+                font-family: system-ui, sans-serif;
+                margin: 24px;
+            }
+            .item {
+                padding: 10px 0;
+                border-bottom: 1px solid #eee;
+            }
+            .meta {
+                color: #666;
+                font-size: 12px;
+            }
+            header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 12px;
+            }
+            a {
+                color: #0366d6;
+                text-decoration: none;
+            }
+            a:hover {
+                text-decoration: underline;
+            }
+            button {
+                margin-left: 8px;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <h1>⭐ ブックマーク</h1>
+            <nav><a href="/news">← ニュース一覧へ戻る</a></nav>
+        </header>
+
+        <div id="list">読み込み中...</div>
+
+        <script is:inline>
+            const KEY = "bookmarks:v1";
+            const load = () => {
+                try {
+                    return JSON.parse(localStorage.getItem(KEY)) ?? [];
+                } catch {
+                    return [];
+                }
+            };
+            const save = (arr) =>
+                localStorage.setItem(KEY, JSON.stringify(arr));
+
+            const render = () => {
+                const list = load();
+                const el = document.getElementById("list");
+                if (!list.length) {
+                    el.innerHTML = "<p>まだブックマークはありません。</p>";
+                    return;
+                }
+
+                el.innerHTML =
+                    '<ul style="list-style:none; padding:0; margin:0;"></ul>';
+                const ul = el.querySelector("ul");
+
+                list.sort(
+                    (a, b) => new Date(b.addedAt) - new Date(a.addedAt),
+                ).forEach((item) => {
+                    const li = document.createElement("li");
+                    li.className = "item";
+                    li.innerHTML = `
+            <a href="${item.link}" target="_blank" rel="noopener noreferrer">${item.title}</a>
+            <div class="meta">${new Date(item.addedAt).toLocaleString()}</div>
+            <button data-id="${item.id}">削除</button>
+            `;
+                    ul.appendChild(li);
+                });
+
+                ul.addEventListener("click", (e) => {
+                    const btn = e.target.closest("button[data-id]");
+                    if (!btn) return;
+                    const id = btn.getAttribute("data-id");
+                    const next = load().filter(
+                        (x) => String(x.id) !== String(id),
+                    );
+                    save(next);
+                    render();
+                });
+            };
+
+            render();
+        </script>
+    </body>
+</html>
