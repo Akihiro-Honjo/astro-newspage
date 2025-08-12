@@ -60,5 +60,67 @@
       "link": "https://atmarkit.itmedia.co.jp/ait/articles/2508/06/news012.html",
       "published": "Wed, 06 Aug 2025 08:00:00 +0900"
     }
+  ],
+  "2025-08-12": [
+    {
+      "id": "https://www.itmedia.co.jp/enterprise/articles/2508/12/news002.html",
+      "title": "PR: AWSビジネスを強化するネットワールド　商機拡大の打ち手は「三方良し」のビジネス支援プログラム",
+      "link": "https://www.itmedia.co.jp/enterprise/articles/2508/12/news002.html",
+      "published": "Tue, 12 Aug 2025 10:00:00 +0900"
+    },
+    {
+      "id": "https://atmarkit.itmedia.co.jp/ait/articles/2508/12/news025.html",
+      "title": "Ruby開発者の挑戦をたたえる「Ruby biz Grand prix 2025」　エントリー企業を発表",
+      "link": "https://atmarkit.itmedia.co.jp/ait/articles/2508/12/news025.html",
+      "published": "Tue, 12 Aug 2025 08:00:00 +0900"
+    },
+    {
+      "id": "https://atmarkit.itmedia.co.jp/ait/articles/2508/09/news012.html",
+      "title": "「Webを直接操作できる」から生まれるリスクとは？　OpenAIがChatGPTにエージェント機能を追加",
+      "link": "https://atmarkit.itmedia.co.jp/ait/articles/2508/09/news012.html",
+      "published": "Tue, 12 Aug 2025 08:00:00 +0900"
+    },
+    {
+      "id": "https://atmarkit.itmedia.co.jp/ait/articles/2508/12/news021.html",
+      "title": "AI案件が増加、ITフリーランス人材に企業が求めるものとは？　ギークス調査",
+      "link": "https://atmarkit.itmedia.co.jp/ait/articles/2508/12/news021.html",
+      "published": "Tue, 12 Aug 2025 08:00:00 +0900"
+    },
+    {
+      "id": "https://atmarkit.itmedia.co.jp/ait/articles/2508/12/news016.html",
+      "title": "5つのあるある事例に見るメールトラブルの原因、未然に防ぐ運用とモニタリングの具体的ポイント集",
+      "link": "https://atmarkit.itmedia.co.jp/ait/articles/2508/12/news016.html",
+      "published": "Tue, 12 Aug 2025 05:00:00 +0900"
+    },
+    {
+      "id": "https://atmarkit.itmedia.co.jp/ait/articles/2508/12/news006.html",
+      "title": "どこでも生き抜けるスキルを身に付けるには、ボーイスカウトが最適",
+      "link": "https://atmarkit.itmedia.co.jp/ait/articles/2508/12/news006.html",
+      "published": "Tue, 12 Aug 2025 05:00:00 +0900"
+    },
+    {
+      "id": "https://atmarkit.itmedia.co.jp/ait/articles/2508/11/news002.html",
+      "title": "C言語とは？　5つの“学習するメリット”を分かりやすく解説",
+      "link": "https://atmarkit.itmedia.co.jp/ait/articles/2508/11/news002.html",
+      "published": "Tue, 12 Aug 2025 05:00:00 +0900"
+    },
+    {
+      "id": "https://atmarkit.itmedia.co.jp/ait/articles/2508/08/news025.html",
+      "title": "日本企業の「テレワークしてない率」は「コロナ禍」時と比較しておよそ倍に　完全廃止で何が起き得るのか？",
+      "link": "https://atmarkit.itmedia.co.jp/ait/articles/2508/08/news025.html",
+      "published": "Fri, 08 Aug 2025 08:00:00 +0900"
+    },
+    {
+      "id": "https://atmarkit.itmedia.co.jp/ait/articles/2508/01/news036.html",
+      "title": "日本の大手企業の6割以上が取引先起因のセキュリティ被害に　自社システム感染、取引先感染、脆弱性悪用の内訳は？　アシュアード調査",
+      "link": "https://atmarkit.itmedia.co.jp/ait/articles/2508/01/news036.html",
+      "published": "Fri, 08 Aug 2025 08:00:00 +0900"
+    },
+    {
+      "id": "https://atmarkit.itmedia.co.jp/ait/articles/2508/08/news014.html",
+      "title": "「まさか自分が？」Windows 11のサイバー攻撃対策、いますぐ見直すべき5つの設定",
+      "link": "https://atmarkit.itmedia.co.jp/ait/articles/2508/08/news014.html",
+      "published": "Fri, 08 Aug 2025 05:00:00 +0900"
+    }
   ]
 }
